@@ -4,7 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.socket.DatagramPacket;
 import io.netty.example.udp.broadcast.LogMsg;
-import io.netty.handler.codec.MessageToMessageEncoder;
+import io.netty.handler.codec.MessageToMessageDecoder;
 
 import java.util.List;
 
@@ -21,10 +21,11 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * @author Rico Yu ricoyu520@gmail.com
  * @version 1.0
  */
-public class LogEventDecoder extends MessageToMessageEncoder<DatagramPacket> {
+public class LogEventDecoder extends MessageToMessageDecoder<DatagramPacket> {
+	
 	
 	@Override
-	protected void encode(ChannelHandlerContext ctx, DatagramPacket msg, List<Object> out) throws Exception {
+	protected void decode(ChannelHandlerContext ctx, DatagramPacket msg, List<Object> out) throws Exception {
 		ByteBuf buf = msg.content();
 		long time = buf.readLong();
 		System.out.println("接收到"+time+"发送的消息");
