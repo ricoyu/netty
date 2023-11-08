@@ -24,6 +24,7 @@ import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 
 /**
+ * 这是Netty对UDP通讯的抽象
  * A UDP/IP {@link Channel}.
  */
 public interface DatagramChannel extends Channel {
