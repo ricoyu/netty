@@ -201,6 +201,12 @@ public interface ChannelOutboundInvoker {
     ChannelOutboundInvoker read();
 
     /**
+     * 写数据的特点
+     * <ul>
+     *     <li/>channel.write() 从第一个OutboundChannelHandler开始写起; 全部的出站Handler都要执行一遍
+     *     <li/>channelPipeline.write() 从第一个OutboundChannelHandler开始写起; 全部的出站Handler都要执行一遍
+     *     <li/>ChannelHandlerContext.write() 直接从下一个出站Handler开始写
+     * </ul>
      * Request to write a message via this {@link ChannelHandlerContext} through the {@link ChannelPipeline}.
      * This method will not request to actual flush, so be sure to call {@link #flush()}
      * once you want to request to flush all pending data to the actual transport.
@@ -225,6 +231,12 @@ public interface ChannelOutboundInvoker {
     ChannelFuture writeAndFlush(Object msg, ChannelPromise promise);
 
     /**
+     * 写数据的特点
+     * <ul>
+     *     <li/>channel.write() 从第一个OutboundChannelHandler开始写起; 全部的出站Handler都要执行一遍
+     *     <li/>channelPipeline.write() 从第一个OutboundChannelHandler开始写起; 全部的出站Handler都要执行一遍
+     *     <li/>ChannelHandlerContext.write() 直接从下一个出站Handler开始写
+     * </ul>
      * Shortcut for call {@link #write(Object)} and {@link #flush()}.
      */
     ChannelFuture writeAndFlush(Object msg);

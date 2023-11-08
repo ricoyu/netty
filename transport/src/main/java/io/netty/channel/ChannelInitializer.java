@@ -25,6 +25,7 @@ import io.netty.util.internal.logging.InternalLoggerFactory;
 import java.util.concurrent.ConcurrentMap;
 
 /**
+ * 专门负责把ChannelHandler添加到ChannelPipeline中, 添加完之后就把自己从ChannelPipeline中移除
  * A special {@link ChannelInboundHandler} which offers an easy way to initialize a {@link Channel} once it was
  * registered to its {@link EventLoop}.
  *

@@ -22,6 +22,7 @@ import io.netty.util.ByteProcessor;
 import java.util.List;
 
 /**
+ * 负责以回车换行符为分隔符的解码器
  * A decoder that splits the received {@link ByteBuf}s on line endings.
  * <p>
  * Both {@code "\n"} and {@code "\r\n"} are handled.

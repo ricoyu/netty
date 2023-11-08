@@ -43,6 +43,7 @@ public interface ByteBufAllocator {
     ByteBuf buffer(int initialCapacity, int maxCapacity);
 
     /**
+     * 判断JDK里面有没有sun.misc.Unsafe类，如果有，就返回基于直接内存的ByteBuf，否则返回基于堆内存的ByteBuf
      * Allocate a {@link ByteBuf}, preferably a direct buffer which is suitable for I/O.
      */
     ByteBuf ioBuffer();

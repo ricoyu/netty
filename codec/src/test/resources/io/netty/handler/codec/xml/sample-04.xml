@@ -309,9 +309,9 @@
           <maxmem>1024m</maxmem>
         </configuration>
       </plugin>
-      <plugin>
-        <!-- ensure that only methods available in java 1.6 can
-             be used even when compiling with java 1.7+ -->
+      <!--<plugin>
+        &lt;!&ndash; ensure that only methods available in java 1.6 can
+             be used even when compiling with java 1.7+ &ndash;&gt;
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>animal-sniffer-maven-plugin</artifactId>
         <version>1.15</version>
@@ -327,12 +327,12 @@
 
             <ignore>java.util.zip.Deflater</ignore>
 
-            <!-- Used for NIO UDP multicast -->
+            &lt;!&ndash; Used for NIO UDP multicast &ndash;&gt;
             <ignore>java.nio.channels.DatagramChannel</ignore>
             <ignore>java.nio.channels.MembershipKey</ignore>
             <ignore>java.net.StandardProtocolFamily</ignore>
 
-            <!-- Used for NIO. 2 -->
+            &lt;!&ndash; Used for NIO. 2 &ndash;&gt;
             <ignore>java.nio.channels.AsynchronousChannel</ignore>
             <ignore>java.nio.channels.AsynchronousSocketChannel</ignore>
             <ignore>java.nio.channels.AsynchronousServerSocketChannel</ignore>
@@ -351,7 +351,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
+      </plugin>-->
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>2.12.1</version>

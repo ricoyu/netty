@@ -195,8 +195,8 @@
   </profiles>
 
   <properties>
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <netty.dev.tools.directory>${project.build.directory}/dev-tools</netty.dev.tools.directory>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -676,9 +676,9 @@
           </excludes>
         </configuration>
       </plugin>
-      <plugin>
-        <!-- ensure that only methods available in java 1.6 can
-             be used even when compiling with java 1.7+ -->
+      <!--<plugin>
+        &lt;!&ndash; ensure that only methods available in java 1.6 can
+             be used even when compiling with java 1.7+ &ndash;&gt;
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>animal-sniffer-maven-plugin</artifactId>
         <version>1.16</version>
@@ -695,7 +695,7 @@
 
             <ignore>java.util.zip.Deflater</ignore>
 
-            <!-- Used for NIO -->
+            &lt;!&ndash; Used for NIO &ndash;&gt;
             <ignore>java.nio.channels.DatagramChannel</ignore>
             <ignore>java.nio.channels.MembershipKey</ignore>
             <ignore>java.nio.channels.ServerSocketChannel</ignore>
@@ -705,7 +705,7 @@
             <ignore>java.net.SocketOption</ignore> 
             <ignore>java.nio.channels.NetworkChannel</ignore>
 
-            <!-- Self-signed certificate generation -->
+            &lt;!&ndash; Self-signed certificate generation &ndash;&gt;
             <ignore>sun.security.x509.AlgorithmId</ignore>
             <ignore>sun.security.x509.CertificateAlgorithmId</ignore>
             <ignore>sun.security.x509.CertificateIssuerName</ignore>
@@ -718,7 +718,7 @@
             <ignore>sun.security.x509.X509CertInfo</ignore>
             <ignore>sun.security.x509.X509CertImpl</ignore>
 
-            <!-- SSLSession implementation -->
+            &lt;!&ndash; SSLSession implementation &ndash;&gt;
             <ignore>javax.net.ssl.SSLEngine</ignore>
             <ignore>javax.net.ssl.X509ExtendedTrustManager</ignore>
             <ignore>javax.net.ssl.SSLParameters</ignore>
@@ -734,25 +734,25 @@
             <ignore>java.util.concurrent.ConcurrentLinkedDeque</ignore>
             <ignore>java.util.concurrent.ThreadLocalRandom</ignore>
 
-            <!-- Compression -->
+            &lt;!&ndash; Compression &ndash;&gt;
             <ignore>java.util.zip.CRC32</ignore>
             <ignore>java.util.zip.Adler32</ignore>
 
-            <!-- NioDatagramChannel implementation -->
+            &lt;!&ndash; NioDatagramChannel implementation &ndash;&gt;
             <ignore>java.net.ProtocolFamily</ignore>
 
-            <!-- JDK 9 -->
+            &lt;!&ndash; JDK 9 &ndash;&gt;
             <ignore>java.nio.ByteBuffer</ignore>
             <ignore>java.nio.CharBuffer</ignore>
 
-            <!-- JDK 8 -->
+            &lt;!&ndash; JDK 8 &ndash;&gt;
             <ignore>java.util.concurrent.atomic.LongAdder</ignore>
             <ignore>java.util.function.BiFunction</ignore>
 
-            <!-- Resolver -->
+            &lt;!&ndash; Resolver &ndash;&gt;
             <ignore>java.net.InetAddress</ignore>
 
-            <!-- NoexecVolumeDetector -->
+            &lt;!&ndash; NoexecVolumeDetector &ndash;&gt;
             <ignore>java.nio.file.attribute.PosixFilePermission</ignore>
             <ignore>java.nio.file.Files</ignore>
             <ignore>java.nio.file.LinkOption</ignore>
@@ -771,7 +771,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
+      </plugin>-->
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>2.12.1</version>
