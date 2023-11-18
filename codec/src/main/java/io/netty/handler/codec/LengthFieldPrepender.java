@@ -25,6 +25,7 @@ import java.util.List;
 
 
 /**
+ * 用于给报文添加长度字段 <br/>
  * An encoder that prepends the length of the message.  The length value is
  * prepended as a binary form.
  * <p>
@@ -59,7 +60,7 @@ public class LengthFieldPrepender extends MessageToMessageEncoder<ByteBuf> {
     private final int lengthAdjustment;
 
     /**
-     * Creates a new instance.
+     * 用于给报文添加长度字段 Creates a new instance.
      *
      * @param lengthFieldLength the length of the prepended length field.
      *                          Only 1, 2, 3, 4, and 8 are allowed.

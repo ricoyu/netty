@@ -194,6 +194,7 @@ public interface Channel extends AttributeMap, ChannelOutboundInvoker, Comparabl
     Channel flush();
 
     /**
+     * 这是真正读写网络的类，它是一个内部类，只能通过 Channel.unsafe() 方法获取到它的实例。
      * <em>Unsafe</em> operations that should <em>never</em> be called from user-code. These methods
      * are only provided to implement the actual transport, and must be invoked from an I/O thread except for the
      * following methods:

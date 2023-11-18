@@ -344,9 +344,14 @@ abstract class AbstractChannelHandlerContext extends DefaultAttributeMap
     static void invokeChannelRead(final AbstractChannelHandlerContext next, Object msg) {
         final Object m = next.pipeline.touch(ObjectUtil.checkNotNull(msg, "msg"), next);
         EventExecutor executor = next.executor();
+        /*
+         * 判断执行invokeChannelRead的线程是不是当前的EventLoop线程，如果是则直接调用invokeChannelRead方法，
+         * 判断方法就是拿到当前线程, 然后跟eventloop线程进行比较
+         */
         if (executor.inEventLoop()) {
             next.invokeChannelRead(m);
         } else {
+            //如果不是, 打包成一个任务, 提交到EventLoop线程中执行
             executor.execute(new Runnable() {
                 @Override
                 public void run() {

@@ -15,12 +15,12 @@
  */
 package io.netty.handler.codec;
 
-import java.nio.ByteOrder;
-import java.util.List;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.serialization.ObjectDecoder;
+
+import java.nio.ByteOrder;
+import java.util.List;
 
 /**
  * A decoder that splits the received {@link ByteBuf}s dynamically by the
@@ -126,11 +126,12 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
  * lengthFieldLength   = 3
  * <b>lengthAdjustment</b>    = <b>2</b> (= the length of Header 1)
  * initialBytesToStrip = 0
+ * 这个例子中官方源码给的数值是错误的, length字段的值原来给的是0x00000C, 表示12, 实际下面这个例子长度应该是14(2字节额外头部+12字节实际内容), 所以这里改成了0x00000E
  *
  * BEFORE DECODE (17 bytes)                      AFTER DECODE (17 bytes)
  * +----------+----------+----------------+      +----------+----------+----------------+
  * |  Length  | Header 1 | Actual Content |----->|  Length  | Header 1 | Actual Content |
- * | 0x00000C |  0xCAFE  | "HELLO, WORLD" |      | 0x00000C |  0xCAFE  | "HELLO, WORLD" |
+ * | 0x00000E |  0xCAFE  | "HELLO, WORLD" |      | 0x00000E |  0xCAFE  | "HELLO, WORLD" |
  * +----------+----------+----------------+      +----------+----------+----------------+
  * </pre>
  *
@@ -216,8 +217,8 @@ public class LengthFieldBasedFrameDecoder extends ByteToMessageDecoder {
     /**
      * Creates a new instance.
      *
-     * @param maxFrameLength
-     *        the maximum length of the frame.  If the length of the frame is
+     * @param maxFrameLength 
+     *        报文最大长度 the maximum length of the frame.  If the length of the frame is
      *        greater than this value, {@link TooLongFrameException} will be
      *        thrown.
      * @param lengthFieldOffset

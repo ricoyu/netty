@@ -126,6 +126,7 @@ public interface ChannelHandlerContext extends AttributeMap, ChannelInboundInvok
 
     /**
      * Return the {@link Channel} which is bound to the {@link ChannelHandlerContext}.
+     * 表示当前 ChannelHandlerContext 所属的 Channel
      */
     Channel channel();
 
@@ -188,6 +189,7 @@ public interface ChannelHandlerContext extends AttributeMap, ChannelInboundInvok
 
     /**
      * Return the assigned {@link ChannelPipeline}
+     * 表示当前 ChannelHandlerContext 所属的 ChannelPipeline
      */
     ChannelPipeline pipeline();
 

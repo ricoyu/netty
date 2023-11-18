@@ -11,6 +11,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * 演示粘包/半包问题
+ * 如果添加了自定义的Decoder已经将ByteBuf转成业务对象了, 这边的泛型才可以用自己的业务对象
  * <p>
  * Copyright: (C), 2023-11-04 17:50
  * <p>

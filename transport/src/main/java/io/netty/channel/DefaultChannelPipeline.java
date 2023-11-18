@@ -634,6 +634,7 @@ public class DefaultChannelPipeline implements ChannelPipeline {
             // We must call setAddComplete before calling handlerAdded. Otherwise if the handlerAdded method generates
             // any pipeline events ctx.handler() will miss them because the state will not allow it.
             ctx.setAddComplete();
+            //只是回调一下这个方法, 方便Handler被加入到pipeline后做一些后续处理
             ctx.handler().handlerAdded(ctx);
         } catch (Throwable t) {
             boolean removed = false;
@@ -1428,7 +1429,13 @@ public class DefaultChannelPipeline implements ChannelPipeline {
         public void channelInactive(ChannelHandlerContext ctx) throws Exception {
             ctx.fireChannelInactive();
         }
-
+    
+        /**
+         * 本身不对入站事件做任何处理, 只是将事件传递给下一个节点
+         * @param ctx
+         * @param msg
+         * @throws Exception
+         */
         @Override
         public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
             ctx.fireChannelRead(msg);

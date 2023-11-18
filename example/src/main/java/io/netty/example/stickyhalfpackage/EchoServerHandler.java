@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.ReferenceCountUtil;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -30,6 +31,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 		System.out.println("Server accept["+request+"] and the counter is:"+counter.incrementAndGet());
 		String resp = "Hello, "+request+". Welcome to Netty World!"+System.getProperty("line.separator");
 		ctx.writeAndFlush(Unpooled.copiedBuffer(resp.getBytes(UTF_8)));
+		ReferenceCountUtil.release(msg);
 	}
 	
 	@Override
