@@ -28,6 +28,7 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		ByteBuf msg = null;
 		String request = "Mark liston, King,James,Deer" + System.getProperty("line.separator");
+		//连发100条消息, 实际会发生粘包, 服务端只收到一条合并起来的消息
 		for (int i = 0; i < 100; i++) {
 			msg = Unpooled.buffer(request.length());
 			msg.writeBytes(request.getBytes());

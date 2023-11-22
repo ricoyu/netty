@@ -96,6 +96,7 @@ public interface Channel extends AttributeMap, ChannelOutboundInvoker, Comparabl
 
     /**
      * Returns the configuration of this channel.
+     * 返回当前 Channel 的配置信息
      */
     ChannelConfig config();
 
@@ -105,16 +106,19 @@ public interface Channel extends AttributeMap, ChannelOutboundInvoker, Comparabl
     boolean isOpen();
 
     /**
+     * 判断当前 Channel 是否已经被注册到 EventLoop 上 <p/>
      * Returns {@code true} if the {@link Channel} is registered with an {@link EventLoop}.
      */
     boolean isRegistered();
 
     /**
      * Return {@code true} if the {@link Channel} is active and so connected.
+     * 是否已经和对端处于激活状态
      */
     boolean isActive();
 
     /**
+     * TCP的配置信息
      * Return the {@link ChannelMetadata} of the {@link Channel} which describe the nature of the {@link Channel}.
      */
     ChannelMetadata metadata();

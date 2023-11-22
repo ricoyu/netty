@@ -208,7 +208,14 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
         }
         return doWriteInternal(in, in.current());
     }
-
+    
+    /**
+     * 成功发送出去就返回1, 否则返回0
+     * @param in
+     * @param msg
+     * @return
+     * @throws Exception
+     */
     private int doWriteInternal(ChannelOutboundBuffer in, Object msg) throws Exception {
         if (msg instanceof ByteBuf) {
             ByteBuf buf = (ByteBuf) msg;
@@ -218,6 +225,9 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
             }
 
             final int localFlushedAmount = doWriteBytes(buf);
+            /*
+             * localFlushedAmount如果等于0, 表示底层的socket缓冲区已满, 无法继续写入数据。
+             */
             if (localFlushedAmount > 0) {
                 in.progress(localFlushedAmount);
                 if (!buf.isReadable()) {
@@ -249,18 +259,30 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
 
     @Override
     protected void doWrite(ChannelOutboundBuffer in) throws Exception {
+        /*
+         * 这个值默认是16
+         * 就是说对于任意的channel而言, EventLoop只帮你写16次, 因为一个EventLoop可能会处理多个Channel
+         * 这个计数决定了在放弃写入操作前方法将尝试写入数据的次数。
+         * 在Netty中, 这是一种避免在一个通道上长时间写操作的机制, 以确保事件循环（EventLoop）可以及时处理其他通道。
+         */
         int writeSpinCount = config().getWriteSpinCount();
         do {
             Object msg = in.current();
+            //没有取到表示已经写完了
             if (msg == null) {
                 // Wrote all messages.
                 clearOpWrite();
                 // Directly return here so incompleteWrite(...) is not called.
                 return;
             }
+            //doWriteInternal(in, msg)是实际执行写入操作的方法, 它会返回实际写入的次数, 这个值从writeSpinCount中被扣除。
             writeSpinCount -= doWriteInternal(in, msg);
         } while (writeSpinCount > 0);
 
+        /*
+         * 如果退出循环时writeSpinCount小于0, 表示还有未完成的写操作。
+         * incompleteWrite方法会被调用来处理这种情况, 可能涉及设置一些内部状态, 以便稍后继续尝试写操作。
+         */
         incompleteWrite(writeSpinCount < 0);
     }
 
@@ -318,7 +340,10 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
      * @return amount       the amount of written bytes
      */
     protected abstract int doWriteBytes(ByteBuf buf) throws Exception;
-
+    
+    /**
+     * 注册一个写事件
+     */
     protected final void setOpWrite() {
         final SelectionKey key = selectionKey();
         // Check first if the key is still valid as it may be canceled as part of the deregistration
@@ -332,7 +357,10 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
             key.interestOps(interestOps | SelectionKey.OP_WRITE);
         }
     }
-
+    
+    /**
+     * 取消对写事件的关注
+     */
     protected final void clearOpWrite() {
         final SelectionKey key = selectionKey();
         // Check first if the key is still valid as it may be canceled as part of the deregistration

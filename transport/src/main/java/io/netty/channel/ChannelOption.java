@@ -146,7 +146,7 @@ public class ChannelOption<T> extends AbstractConstant<ChannelOption<T>> {
      */
     public static final ChannelOption<Integer> SO_LINGER = valueOf("SO_LINGER");
     /**
-     * 监听的时候的可连接队列的大小(等待队列), 一般我们不会去设置这个值, 因为操作系统会自动调整这个值, 但是如果我们的服务端
+     * 监听的时候可连接队列的大小(等待队列), 一般我们不会去设置这个值, 因为操作系统会自动调整这个值, 但是如果我们的服务端
      * 和客户端之间的网络比较差, 那么我们可以设置这个值, 使得可连接队列的大小变大, 这样就可以减少网络传输的次数, 从而
      * 提高性能
      * <p/>

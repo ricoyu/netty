@@ -218,16 +218,19 @@ public class LengthFieldBasedFrameDecoder extends ByteToMessageDecoder {
      * Creates a new instance.
      *
      * @param maxFrameLength 
-     *        报文最大长度 the maximum length of the frame.  If the length of the frame is
+     *        报文的最大长度。如果报文的长度超过此值, 将会抛出一个 TooLongFrameException。
+     *        这是为了防止由于错误的长度字段或恶意攻击导致的内存溢出。the maximum length of the frame.  If the length of the frame is
      *        greater than this value, {@link TooLongFrameException} will be
      *        thrown.
-     * @param lengthFieldOffset
+     * @param lengthFieldOffset 长度字段的偏移量。这个值告诉解码器跳过多少字节来到达长度字段。
      *        the offset of the length field
-     * @param lengthFieldLength
+     * @param lengthFieldLength 长度字段的字节数。这个值表示长度字段占据了多少字节。
      *        the length of the length field
-     * @param lengthAdjustment
+     * @param lengthAdjustment 长度调整值。这个参数用于调整由 lengthFieldLength 指定的长度字段所表示的长度值。
+     *                         例如，如果长度字段包含了消息体和消息头的长度，那么 lengthAdjustment 可能是负的，用来减去头部长度，从而得到实际的消息体长度。
+     *                         所以，计算消息体长度的公式实际上是：实际消息体长度 = 长度字段的值 + lengthAdjustment。
      *        the compensation value to add to the value of the length field
-     * @param initialBytesToStrip
+     * @param initialBytesToStrip 从解码帧中去除的初始字节数。在某些情况下, 你可能不需要接收所有的数据, 这个参数可以用于跳过帧的起始部分。
      *        the number of first bytes to strip out from the decoded frame
      */
     public LengthFieldBasedFrameDecoder(
